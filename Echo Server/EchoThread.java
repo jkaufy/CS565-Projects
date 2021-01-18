@@ -27,7 +27,7 @@ public class EchoThread extends Thread {
                 {
                     echo.println("ECHO: " + str);
                     echo.flush();
-                    if(str.trim().equals("quit"))
+                    if(str.equals("quit"))
                     {
                         break;
                     }

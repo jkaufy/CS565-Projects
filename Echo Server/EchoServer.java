@@ -1,8 +1,5 @@
 import java.io.*;
 import java.net.*;
-import java.lang.*;
-
-
 
 public class EchoServer {
     public static void main(String[] args) 
@@ -39,7 +36,7 @@ class EchoThread implements Runnable {
         {
             fromClient = connection.getInputStream();
             toClient = new PrintWriter(new OutputStreamWriter(connection.getOutputStream()));
-
+            int disconnect = 0;
             System.out.println("Client Connected");
 
             while(true)
@@ -49,7 +46,39 @@ class EchoThread implements Runnable {
                 {
                     toClient.println("ECHO: " + charFromClient);
                     toClient.flush();
-                    if(charFromClient == 'q')
+
+                    switch (disconnect)
+                    {
+                        case 0:
+                            if(Character.toUpperCase(charFromClient) == 'Q')
+                                disconnect ++;
+                            else
+                                disconnect = 0;
+                            break;
+                        case 1:
+                            if(Character.toUpperCase(charFromClient) == 'U')
+                                disconnect ++;
+                            else
+                                disconnect = 0;
+                            break;
+                        case 2:
+                            if(Character.toUpperCase(charFromClient) == 'I')
+                                disconnect ++;
+                            else
+                                disconnect = 0;
+                            break;
+                        case 3:
+                            if(Character.toUpperCase(charFromClient) == 'T')
+                                disconnect ++;
+                            else
+                                disconnect = 0;
+                            break;
+                        default:
+                            disconnect = 0;
+                            break;
+                    }
+
+                    if(disconnect == 4)
                     {
                         break;
                     }
